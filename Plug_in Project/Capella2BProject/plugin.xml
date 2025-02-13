@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <menu
+               label="Capella2B">
+            <command
+                  commandId="Capella2BProject.conversionToBCommand"
+                  label="Convert Operational Analysis to Event-B"
+                  style="push">
+            </command>
+            <command
+                  commandId="Capella2BProject.conversionSAToBCommand"
+                  label="Convert System Analysis to Event-B"
+                  style="push">
+            </command>
+            <command
+                  commandId="Capella2BProject.conversionLAToBCommand"
+                  label="Convert Logical Analysis to Event-B"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="Capella2BProject.conversionToBCommand"
+            name="conversionToB">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.capella.to.B.handlers.ConvertCapella_OA_ToBHandler"
+            commandId="Capella2BProject.conversionOAToBCommand">
+      </handler>
+      <handler
+            class="com.capella.to.B.handlers.ConvertCapella_SA_ToBHandler"
+            commandId="Capella2BProject.conversionSAToBCommand">
+      </handler>
+      <handler
+            class="com.capella.to.B.handlers.ConvertCapella_LA_ToBHandler"
+            commandId="Capella2BProject.conversionLAToBCommand">
+      </handler>
+   </extension>
+</plugin>
