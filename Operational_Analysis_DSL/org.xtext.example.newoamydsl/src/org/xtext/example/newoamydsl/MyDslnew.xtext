@@ -1,0 +1,2919 @@
+grammar org.xtext.example.newoamydsl.MyDslnew with org.eclipse.xtext.common.Terminals
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+generate myDslnew "http://www.xtext.org/example/newoamydsl/MyDslnew"
+
+operationalAnalysis:
+	'<ownedArchitectures'
+	'xsi:type' type=EString
+	'id' architectureId=EString
+	('sid' sid=EString)? 
+	('name=' '"' architectureName=nameType '"')
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)? 
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+    (ownedFunctionPkg=FunctionPkg)?
+    (containedOperationalCapabilityPkg=OperationalActivityPkg)?
+	ownedComponentExchanges+=ComponentExchange*
+	ownedComponentExchangeCategories+=ComponentExchangeCategory*
+	ownedFunctionalLinks+=ExchangeLink*
+	ownedFunctionalAllocations+=ComponentFunctionalAllocation*
+	ownedComponentExchangeRealizations+=ComponentExchangeRealization*
+	ownedRequirementPkgs+=RequirementsPkg*
+	(containedOperationalActivityPkg=OperationalCapabilityPkg)?
+	(ownedInterfacePkg=InterfacePkg)?
+	(ownedDataPkg=DataPkg)?
+	(ownedRolePkg=RolePkg)?
+	(ownedEntityPkg=EntityPkg)?
+	(ownedConceptPkg=ConceptPkg)?
+	'</ownedArchitectures>'
+;
+
+OperationalCapabilityPkg:
+	{OperationalCapabilityPkg}
+	'<ownedAbstractCapabilityPkg'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' nameCapPkg=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedOperationalCapabilities+=OperationalCapability*
+	ownedOperationalCapabilityPkgs+=OperationalCapabilityPkg*
+	ownedCapabilityConfigurations+=CapabilityConfiguration*
+	ownedConceptCompliances+=ConceptCompliance*
+	('</ownedAbstractCapabilityPkg>')?
+;
+
+OperationalCapability:
+	{OperationalCapability}
+	'<ownedOperationalCapabilities'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' nameCapability=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('compliances' compliances=EString)?
+	('configurations' configurations=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedEntityOperationalCapabilityInvolvements+=EntityOperationalCapabilityInvolvement*
+	('</ownedOperationalCapabilities>')?
+;
+
+EntityOperationalCapabilityInvolvement:
+	'<ownedEntityOperationalCapabilityInvolvements'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'involved' involved=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedEntityOperationalCapabilityInvolvements>')?
+;
+
+ConceptCompliance:
+	'<ownedConceptCompliances'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'complyWithConcept' complyWithConcept=EString
+	'compliantCapability' compliantCapability=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedConceptCompliances>')?
+;
+
+CapabilityConfiguration:
+	'<ownedCapabilityConfigurations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' nameConfig=nameType '"')?
+	('idType' idType=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('inExchangeLinks' inExchangeLinks=EString)?
+	('outExchangeLinks' outExchangeLinks=EString)?
+	('composingLinks' composingLinks=EString)?
+	('configuredCapability' configuredCapability=EString)?
+	('abstract' abstract=EString)?
+	'actor' actor=EString
+	'human' human=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedFunctionalAllocation+=ComponentFunctionalAllocation*
+	ownedComponentExchanges+=ComponentExchange*
+	ownedComponentExchangeCategories+=ComponentExchangeCategory*
+	(ownedAbstractCapabilityPkg=OperationalCapabilityPkg)?
+	(ownedInterfacePkg=InterfacePkg)?
+	(ownedDataPkg=DataPkg)?
+	(ownedStateMachines+=StateMachine)*
+	(ownedGeneralizations+=Generalization)*
+	(ownedFeatures+=Feature)*
+	(ownedInterfaceAllocations+=InterfaceAllocation)*
+	(ownedCommunicationLinks+=CommunicationLink)*
+	(ownedInterfaceUses+=InterfaceUse)*
+	(ownedInterfaceImplementations+=InterfaceImplementation)*
+	(ownedComponentRealizations+=ComponentRealization)*
+	(ownedPhysicalPath+=PhysicalPath)*
+	(ownedPhysicalLinks+=PhysicalLink)*
+	('</ownedCapabilityConfigurations>')?
+;
+
+ComponentFunctionalAllocation:
+	'<ownedFunctionalAllocation'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedFunctionalAllocation>')?
+;
+
+RequirementsPkg:
+	{RequirementsPkg}
+	'<ownedRequirementPkgs'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('additionalInformation' additionalInformation=EString)?
+	('level' level=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg *
+	ownedRequirements+=Requirement*
+	ownedRequirementPkgs+=RequirementsPkg*
+	('</ownedRequirementPkgs>')?
+;
+
+Requirement:
+	{Requirement}
+	'<ownedRequirements'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('requirementId' requirementId=EString)?
+	('additionalInformation' additionalInformation=EString)?
+	('verificationMethod' verificationMethod=EString)?
+	('verificationPhase' verificationPhase=EString)?
+	('implementationVersion' implementationVersion=EString)?
+	('feature' feature=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	wnedTraces+=Trace*
+	('</ownedRequirements>')?
+;
+
+AbstractPropertyValue:
+	{AbstractPropertyValue}
+	'<ownedPropertyValues'
+	('xsi:type' strType=EString)
+	'id' strId=EString
+	('sid' sid=EString)?
+	('name=' '"' strName=nameType '"')
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('value' (value=EString | value2=EFloat))?
+	('appliedPropertyValues' stringAppliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' stringAppliedPropertyValueGroups=EString)?
+	('status' statut=EString)?
+	('features' stringFeatures=EString)?
+	('involvedElements' stringInvolvedElements=EString)? 
+	('>' | '/>')
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(stringOwnedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(stringOwnedPropertyValueGroups+=PropertyValueGroup)*
+	('</ownedPropertyValues>')?
+;
+
+EnumerationPropertyType:
+	{EnumerationPropertyType}
+	'<ownedEnumerationPropertyTypes'
+	'xsi:type' type=EString
+	id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' statut=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(ownedLiterals+=EnumerationPropertyLiteral)?
+	('</ownedEnumerationPropertyTypes>')?
+;
+
+PropertyValueGroup:
+	{PropertyValueGroup}
+	'<ownedPropertyValueGroups'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' statut=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(ownedTraces+=Trace)?
+	('</ownedPropertyValueGroups>')?
+;
+
+EnumerationPropertyLiteral:
+	{EnumerationPropertyLiteral}
+	'<ownedLiterals'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=[AbstractPropertyValue|EString])?
+	('appliedPropertyValueGroups' '(' appliedPropertyValueGroups+=[PropertyValueGroup|EString])?
+	('status' statut=EString)?
+	('features' '(' features=[EnumerationPropertyLiteral|EString])?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	'</ownedLiterals>'
+;
+	
+Trace:
+	{Trace}
+	'<ownedTraces'
+	'xsi:type' typeTrace=EString
+	'id' idTrace=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=[AbstractPropertyValue|EString])?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=[PropertyValueGroup|EString])?
+	('status' statut=EString)?
+	('features' '(' features=[EnumerationPropertyLiteral|EString])?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	('</ownedTraces>')?
+;
+
+PropertyValuePkg:
+	{PropertyValuePkg}
+	'<ownedPropertyValuePkgs'
+	'xi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(ownedTraces+=Trace)?
+	(ownedPropertyValuePkgs+=PropertyValuePkg)*
+	('</ownedPropertyValuePkgs>')?
+;
+
+ExchangeLink:
+	{ExchangeLink}
+	'<ownedFunctionalLinks'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('name=' '"' name=nameType '"')?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('exchangeContainmentLinks' exchangeContainmentLinks=EString)?
+	('sources' sources=EString)?
+	('destinations' destinations=EString)?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(ownedExchangeContainments+=ExchangeContainment)*
+	('</ownedFunctionalLinks>')?
+;
+
+ExchangeContainment:
+	{ExchangeContainment}
+	'<ownedExchangeContainments'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'exchange' exchange=EString
+	'link' link=EString
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+;
+
+FunctionPkg:
+	{FunctionPkg}
+	'<ownedFunctionPkg'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' functionPkgName=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=[EnumerationPropertyLiteral|EString])?
+	('features' features=[EnumerationPropertyLiteral|EString])?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(ownedTraces+=Trace)*
+	(ownedPropertyValuePkgs+=PropertyValuePkg)*
+	(ownedFunctionalLinks+=ExchangeLink)*
+	(ownedExchanges+=FunctionalExchangeSpecification)*
+	(ownedExchangeSpecificationRealizations+=ExchangeSpecificationRealization)*
+	(ownedCategories+=ExchangeCategory)*
+	(ownedFunctionSpecifications+=FunctionSpecification)*
+	(ownedOperationalActivities+=OperationalActivity)*
+	'</ownedFunctionPkg>'
+;
+
+OperationalActivityPkg:
+	{OperationalActivityPkg}
+	'<ownedOperationalActivityPkgs'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' functionPkgName=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=[EnumerationPropertyLiteral|EString])?
+	('features' features=[EnumerationPropertyLiteral|EString])?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(ownedTraces+=Trace)*
+	(ownedOperationalActivityPkgs+=OperationalActivityPkg)*
+	(ownedOperationalActivities+=OperationalActivity)*
+	('</ownedOperationalActivityPkgs>')?
+;
+
+
+ExchangeCategory:
+	'<ownedCategories'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('exchanges' exchanges=EString)?
+	('>' | '/>')
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType )*
+	(ownedPropertyValueGroups+=PropertyValueGroup )*
+	('</ownedCategories>')?
+;
+
+ExchangeSpecificationRealization:
+	'<ownedExchangeSpecificationRealizations'
+	ComponentExchangeRealization
+	('</ownedExchangeSpecificationRealizations>')?
+;
+
+ComponentExchangeRealization:
+	('<ownedComponentExchangeRealizations')?
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	(componentOwnedPropertyValues+=AbstractPropertyValue)*
+	(componentEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(componentOwnedPropertyValueGroups+=PropertyValueGroup)*
+	('</ownedComponentExchangeRealizations>')?
+;
+
+FunctionalExchangeSpecification:
+	{FunctionalExchangeSpecification}
+	'<ownedExchanges'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('realizations' realizations=EString)?
+	('convoyedInformations' convoyedInformations=EString)?
+	'source' source=EString
+	'target' target=EString
+	('link' link=EString)?
+	('>' | '/>')?
+	(exchangeOwnedPropertyValues+=AbstractPropertyValue)*
+	(exchangeEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(exchangeOwnedPropertyValueGroups+=PropertyValueGroup)*
+    ('</ownedExchanges>')?
+;
+
+FunctionSpecification:
+    {FunctionSpecification}
+	'<ownedFunctionSpecifications'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('ownedParameterSet' ownedParameterSet=EString)?
+	('ownedParameter' ownedParameter=EString)?
+	('inExchangeLinks' inExchangeLinks=EString)?
+	('outExchangeLinks' outExchangeLinks=EString)?
+	('isControlOperator' isControlOperator=EString)?
+	('isReadOnly' isReadOnly=EString)?
+	('isSingleExecution' isSingleExecution=EString)?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(ownedTraces+=Trace )?
+	(ownedNodes+=ActivityNode)?
+	(ownedEdges+=ActivityEdge)?
+	(ownedGroups+=ActivityGroup)?
+	('</ownedFunctionSpecifications>')?
+;
+
+ActivityNode:
+	{ActivityNode}
+	'<ownedNodes'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('>' | '/>')?
+	('</ownedNodes>')?
+;
+
+
+ActivityGroup:
+	{ActivityGroup}
+	'<ownedGroups'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('>' | '/>')?
+	(subGroups+=ActivityGroup)?
+	(ownedNodes+=ActivityNode)?
+	(ownedEdges+=ActivityEdge)?
+	('</ownedGroups>')?
+;
+
+ActivityEdge:
+	'<ownedEdges'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('kindOfRate' kindOfRate=RateKind)?
+	('realizedFlow' realizedFlow=EString)?
+	'target' target=EString
+	'source' source=EString
+	('interrupts' interrupts=EString)?
+	('>' | '/>')?
+	(rate=ValueSpecification)?
+	(probability=ValueSpecification)?
+	(guard=ValueSpecification)?
+	(weight=ValueSpecification)?
+	('</ownedEdges>')?
+;
+
+ValueSpecification:
+	{ValueSpecification}
+	('<upperBound' | '<rate' | '<probability' | '<guard' | '<weight')
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('abstractType' abstractType=EString)?
+	('</upperBound>' | '</rate>' | '</probability>' | '</guard>' | '</weight>')?
+;
+
+
+OperationalActivity:
+	{OperationalActivity}
+	'<ownedOperationalActivities'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' nameOpActivities=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('aggregationKind' aggregationKind=AggregationKind)?
+	('idType' idType=EString)?
+	('kind=' '"' kind=FunctionKind '"')?
+	('condition' condition=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('context' context=EString)?
+	('behavior' behavior=EString)?
+	('availableInStates' availableInStates=EString)?
+	('isAbstract' isAbstract=EString)?
+	('isStatic' isStatic=EString)?
+	('ordered' ordered=EString)?
+	('unique' unique=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('final' final=EString)?
+	('isDerived' isDerived=EString)?
+	('isReadOnly' isReadOnly=EString)?
+	('isPartOfKey' isPartOfKey=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedDefaultValue+=DataValue*
+	ownedFunctionalChains+=FunctionalChain*
+	ownedHandlers+=ExceptionHandler*
+	ownedOperationalActivityPkgs+=OperationalActivityPkg
+	inputsOutputsPins+=InputOutputPin*
+	ownedFunctions+=AbstractFunction*
+	ownedFunctionRealizations+=FunctionRealization*
+	functionalExchange+=FunctionalExchange*
+    ('</ownedOperationalActivities>')?
+;
+
+FunctionalExchange:
+	'<ownedFunctionalExchanges'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	'name=' '"' name=ID '"'
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kindOfRate' kindOfRate=RateKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	'target' target=EString
+	'source' source=EString
+	('interrupts' interrupts=EString)?
+	('transformation' transformation=EString)?
+	('selection' selection=EString)?
+	('exchangeSpecifications' exchangeSpecifications=EString)?
+	('exchangedItems' exchangedItems=EString)?
+	('isMulticast' isMulticast=EString)?
+    ('isMultireceive' isMultireceive=EString)?
+    ('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue )?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType )?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	(rate=ValueSpecification)?
+	(probability=ValueSpecification)?
+	(guard=ValueSpecification)?
+	(weight=ValueSpecification)?
+	(ownedFunctionalExchangeRealizations+=FunctionalExchangeRealization)?
+    ('</ownedFunctionalExchanges>')?
+;
+
+FunctionalExchangeRealization:
+	'<ownedFunctionalExchangeRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	('</ownedFunctionalExchangeRealizations>')?
+;
+
+InputOutputPin:
+	{InputOutputPin}
+	('<inputs' | '<arguments' | '<outputs' | '<results')
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('kindOfNode' kindOfNode=ObjectNodeKind)?
+	('ordering' ordering=ObjectNodeOrderingKind)?
+	('abstractType' abstractType=EString)?
+	('inState' inState=EString)?
+	('selection' selection=EString)?
+	('inputEvaluationAction' inputEvaluationAction=EString)?
+	('isControlType' isControlType=EString)?
+    ('isControl' isControl=EString)?
+    ('>' | '/>')?
+	(upperBound=ValueSpecification)?
+	('</inputs>' | '</arguments>' | '</outputs>' | '</results>')?
+;
+
+ExceptionHandler:
+	'<ownedHandlers'
+	'xsi:type' type=EString
+	'handlerBody' handlerBody=EString
+	'exceptionInput' exceptionInput=EString
+	'exceptionTypes' exceptionTypes=EString
+	'/>'
+;
+
+FunctionalChain:
+	{FunctionalChain}
+	'<ownedFunctionalChains'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kind' kind=FunctionalChainKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('availableInStates' availableInStates=EString)?
+	('preCondition' preCondition=EString)?
+	('postCondition' postCondition=EString)?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	ownedFunctionalChainInvolvements+=FunctionalChainInvolvement*
+	ownedFunctionalChainRealizations+=FunctionalChainRealization*
+	ownedSequenceNodes+=ControlNode*
+	ownedSequenceLinks+=SequenceLink*
+	('</ownedFunctionalChains>')?
+;
+
+FunctionalChainInvolvement:
+	{FunctionalChainInvolvementLink}
+	'<ownedFunctionalChainInvolvements'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' chainInvAppliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' chainInvAppliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' chainInvFeatures=EString)?
+	'involved' involved=EString
+	('sourceReferenceHierarchy' sourceReferenceHierarchy=EString)?
+	('targetReferenceHierarchy' targetReferenceHierarchy=EString)?
+	('exchangeContext' exchangeContext=EString)?
+	('exchangedItems' exchangedItems=EString)?
+	('source' source=EString)?
+	('target' target=EString)?
+	('>' | '/>')?
+	(chainInvOwnedPropertyValues+=AbstractPropertyValue)?
+	(chainInvOwnedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(chainInvOwnedPropertyValueGroups+=PropertyValueGroup)?
+	('</ownedFunctionalChainInvolvements>')?
+;
+
+FunctionalChainRealization:
+	'<ownedFunctionalChainRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+    ('</ownedFunctionalChainRealizations>')?
+;
+	
+ControlNode:
+	'<ownedSequenceNodes'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kind' kind=ControlNodeKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	('</ownedSequenceNodes>')?
+;
+
+SequenceLink:
+	{SequenceLink}
+	'<ownedSequenceLinks'
+	'xsi:type' type=EString
+	'id'  id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('sourceReferenceHierarchy' sourceReferenceHierarchy=EString)?
+	('targetReferenceHierarchy' targetReferenceHierarchy=EString)?
+	('condition' condition=EString)?
+	('links' links=EString)?
+	('source' source=EString)?
+	('target' target=EString)?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType )?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	('</ownedSequenceLinks>')?
+;
+
+DataValue:
+	('<ownedLiterals' | '<ownedDataValues' | '<ownedDefaultValue' | '<ownedMinValue' | '<ownedMaxValue' | '<ownedNullValue' | '<ownedLeftOperand' | '<ownedRightOperand' | '<ownedOperand' | '<ownedMinCard' | '<ownedMaxCard' | '<ownedMinLength' | '<ownedMaxLength')?
+	ValueTag
+	('</ownedLiterals>' | '</ownedDataValues>' | '</ownedDefaultValue>' | '</ownedMinValue>' | '</ownedMaxValue>' | '</ownedNullValue>' | '</ownedLeftOperand>' | '</ownedRightOperand>' | '</ownedOperand>' | '</ownedMinCard>' | '</ownedMinLength>' | '</ownedMaxCard>' | '</ownedMaxLength>')?
+;
+
+ValueTag:
+	{ValueTag}
+	'xsi:type' objectType=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' nameValue=(nameType | EmptyString))?
+    ('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('referencedValue' referencedValue=EString)?
+	('referencedProperty' referencedProperty=EString)?
+	('unit' unit=EString)?
+	('abstract' boolValAbstract=EString)?
+    ('value' value=EString)?
+    ('operator' ooperator=EString)?
+    ('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)*
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	(domainValue+=DataValue)*
+;
+
+AbstractFunction:
+	{AbstractFunction}
+	'<ownedFunctions'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('aggregationKind' aggregationKind=AggregationKind)?
+	('idType' idType=EString)?
+	('kind=' '"' kind=FunctionKind '"')?
+	('condition' condition=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('context' context=EString)?
+	('behavior' behavior=EString)?
+	('availableInStates' availableInStates=EString)?
+	('isAbstract' isAbstract=EString)?
+    ('isStatic' isStatic=EString)?
+    ('ordered' ordered=EString)?
+    ('unique' unique=EString)?
+    ('minInclusive' minInclusiv=EString)?
+    ('maxInclusive' maxInclusive=EString)?
+    ('final' final=EString)?
+    ('isDerived'isDerived=EString)?
+    ('isReadOnly' isReadOnly=EString)?
+    ('isPartOfKey' isPartOfKey=EString)?
+    ('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedDefaultValue+=DataValue*
+	ownedFunctionalChains+=FunctionalChain*
+	ownedHandlers+=ExceptionHandler*
+	inoutsOutputs+=InputOutputPin*
+	ownedFunctions+=AbstractFunction*
+	ownedFunctionRealizations+=FunctionRealization*
+	ownedFunctionalExchanges+=FunctionalExchange*
+	ownedConstraints+=Constraint*
+	('</ownedFunctions>')?
+;
+
+//  Contraint rule customized 
+Constraint:
+	{Constraint}
+	'<ownedConstraints'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	
+	// name attribute is nop longer of type EString. It is now either Initialization or Invariant 
+	'name=' '"' name=(Initialization | Invariant) '"'
+	
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('constrainedElements' constrElmts=EString)?
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	(exprSpecification+=OpaqueExpression)?
+	('</ownedConstraints>')?
+;
+
+// New rule added ( syntax to respect : = text_value )
+Initialization:
+	('=')? name=nameType 
+;
+
+// New rule added ( syntax to respect : (: predicate1 >> predicate 2) )
+Invariant:
+	':' leftPart=nameType INVARIANT_CHARACTER2 rightPart=nameType
+;
+
+OpaqueExpression:
+	'<ownedSpecification'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('name=' '"' nameSpecification=nameType '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('>' | '/>')?
+	('<bodies>' (bodies=EString)? '</bodies>')?
+	('<languages>' languages=ID '</languages>')?
+	(ownedPropertyValues+=AbstractPropertyValue)?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	('</ownedSpecification>')?
+;
+
+FunctionRealization:
+	'<ownedFunctionRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	(ownedPropertyValues+=AbstractPropertyValue)?
+	(ownedEnumerationPropertyTypes+=EnumerationPropertyType)?
+	(ownedPropertyValueGroups+=PropertyValueGroup)?
+	('</ownedFunctionRealizations>')?
+;
+
+ComponentExchange:
+	'<ownedComponentExchanges'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kind' kind=ComponentExchangeKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('realizations' realizations=EString)?
+	('convoyedInformations' convoyedInformations=EString)?
+	'source' source=EString
+	'target' target=EString
+	('link' link=EString)?
+	('oriented' oriented=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedComponentExchangeFunctionalExchangeAllocations+=ComponentExchangeFunctionalExchangeAllocation*
+	ownedComponentExchangeRealizations+=ComponentExchangeRealization*
+	ownedComponentExchangeEnds+=ComponentExchangeEnd*
+	('</ownedComponentExchanges>')?
+;
+
+ComponentExchangeCategory:
+	{ComponentExchangeCategory}
+	'<ownedComponentExchangeCategories'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('exchanges' exchanges=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedComponentExchangeCategories>')?
+;
+	
+ComponentExchangeFunctionalExchangeAllocation:
+	'<ownedComponentExchangeFunctionalExchangeAllocations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue* 
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedComponentExchangeFunctionalExchangeAllocations>')?
+;
+
+ComponentExchangeEnd:
+	{ComponentExchangeEnd}
+	'<ownedComponentExchangeEnds'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('port' port=EString)?
+	('part' part=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedComponentExchangeEnds>')?
+;
+
+InterfacePkg:
+	{InterfacePkg}
+	'<ownedInterfacePkg'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedMessageReferences+=MessageReference*
+	ownedExchangeItems+=ExchangeItem*
+	ownedInterfaces+=Interface*
+	ownedInterfacePkgs+=InterfacePkg*
+	('</ownedInterfacePkg>')?
+;
+
+ExchangeItem:
+	'<ownedExchangeItems'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	'exchangeMechanism' exchangeMechanism=ExchangeMechanism
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedGeneralizations+=Generalization*
+	ownedElements+=ExchangeItemElement*
+	ownedInformationRealizations+=InformationRealization*
+	ownedExchangeItemInstances+=ExchangeItemInstance*
+	('</ownedExchangeItems>')?
+;
+
+InformationRealization:
+	'<ownedInformationRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	('ownedPropertyValues' '{' ownedPropertyValues+=AbstractPropertyValue ( "," ownedPropertyValues+=AbstractPropertyValue)* '}' )?
+	('ownedEnumerationPropertyTypes' '{' ownedEnumerationPropertyTypes+=EnumerationPropertyType ( "," ownedEnumerationPropertyTypes+=EnumerationPropertyType)* '}' )?
+	('ownedPropertyValueGroups' '{' ownedPropertyValueGroups+=PropertyValueGroup ( "," ownedPropertyValueGroups+=PropertyValueGroup)* '}' )?
+	('</ownedInformationRealizations>')?
+;
+
+ExchangeItemElement:
+	{ExchangeItemElement}
+	'<ownedElements'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kind' kind=ElementKind)?
+	('direction' direction=ParameterDirection)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('referencedProperties' referencedProperties=EString)?
+	('ordered' ordered=EString)?
+	('unique' unique=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('composite' composite=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	//ownedDefaultValue+=DataValue*
+	('</ownedElements>')?
+;
+
+MessageReference:
+	'<ownedMessageReferences'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'message' message=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedMessageReferences>')?
+;
+	
+Interface:
+	{Interface}
+	'<ownedInterfaces'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('mechanism' mechanism=EString)?
+	('structural' structural=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstract' abstract=EString)?
+	('final' final=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	nestedGeneralClasses+=GeneralClass*
+	ownedInterfaceAllocations+=InterfaceAllocation*
+	ownedExchangeItemAllocations+=ExchangeItemAllocation*
+	('</ownedInterfaces>')?
+;
+
+ExchangeItemAllocation :
+	{ExchangeItemAllocation}
+	'<ownedExchangeItemAllocations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('name=' '"' name=nameType '"')?
+	('sendProtocol' sendProtocol=CommunicationLinkProtocol)?
+	('receiveProtocol' receiveProtocol=CommunicationLinkProtocol)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('allocatedItem' allocatedItem=EString)?
+	('final' final=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedExchangeItemAllocations>')?
+;
+
+GeneralClass:
+	{GeneralClass}
+	'<nestedGeneralClasses'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('idType' idType=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility' visibility=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstract'abstract=EString)?
+	('final' final=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	nestedGeneralClasses+=GeneralClass*
+	('</nestedGeneralClasses>')?
+;
+
+InterfaceAllocation:
+	'<ownedInterfaceAllocations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	( ownedPropertyValues+=AbstractPropertyValue)*
+	( ownedEnumerationPropertyTypes+=EnumerationPropertyType)*
+	(ownedPropertyValueGroups+=PropertyValueGroup)*
+	('</ownedInterfaceAllocations>')?
+;
+
+Feature:
+	{Feature}
+	'<ownedFeatures'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('isAbstract' isAbstract=EString)?
+    ('isStatic' isStatic=EString)?
+    ('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedFeatures>')?
+;
+
+Generalization:
+	'<ownedGeneralizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'super' super=EString
+	'sub' sub=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+    ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedGeneralizations>')?
+;
+
+DataPkg:
+	{DataPkg}
+	('<ownedDataPkg' | '<ownedDataPkgs>')
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedExchangeItems+=ExchangeItem*
+	ownedAssociations+=Association*
+	ownedDataValues+=DataValue*
+	ownedMessageReferences+=MessageReference*
+	ownedDataPkgs+=DataPkg*
+	ownedClasses+=Class*
+	ownedKeyParts+=KeyPart*
+	ownedCollections+=Collection*
+	ownedUnits+=Unit*
+	ownedDataTypes+=DataType*
+	ownedSignals+=Signal*
+	ownedMessages+=Message*
+	ownedExceptions+=Exception*
+	 ownedStateEvents+=StateEvent*
+	('</ownedDataPkg>' | '</ownedDataPkgs>')?
+;
+
+StateEvent:
+	{StateEvent}
+	'<ownedStateEvents'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kind' kind=EventKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('expression' expression=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedStateEventRealizations+=StateEventRealization*
+	('</ownedStateEvents>')?
+;
+
+StateEventRealization:
+	'<ownedStateEventRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' ppliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedStateEventRealizations>')?
+;
+
+Message:
+	{Message}
+	'<ownedMessages'
+	'xsi:type' type=EString
+    'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstract' abstract=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedDataValues+=DataValue*
+	ownedStateMachines+=StateMachine*
+	('</ownedMessages>')?
+;
+
+Unit:
+	{Unit}
+	'<ownedUnits'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedUnits>')?
+;
+
+Class:
+	{Class}
+	'<ownedClasses'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('kind' kind=UnionKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString )?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('keyParts' keyParts=EString)?
+	('discriminant' discriminant=EString)?
+	('defaultProperty' defaultProperty=EString)?
+	('abstract' abstract=EString)?
+	('final' final=EString)?
+	('isPrimitive' isPrimitive=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	nestedGeneralClasses+=GeneralClass*
+	ownedStateMachines+=StateMachine*
+	ownedDataValues+=DataValue*
+	ownedInformationRealizations+=InformationRealization*
+	('</ownedClasses>')?
+;
+	
+KeyPart:
+	'<ownedKeyParts'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' '(' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'property' property=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+    ('</ownedKeyParts>')?
+;
+
+Collection:
+	{Collection}
+	'<ownedCollections'
+	'xsi:type' typeCollection=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('kind' kind=CollectionKind)?
+	('aggregationKind' aggregationKind=AggregationKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('type' type=EString)?
+	('index' index=EString)?
+	('abstract' abstract=EString)?
+	('ordered' ordered=EString)?
+	('unique' unique=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('final' final=EString)?
+	('isPrimitive' isPrimitive=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	ownedDefaultValue+=DataValue*
+    ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedDataValues+=DataValue*
+	('</ownedCollections>')?
+;
+
+Association:
+	{Association}
+	'<ownedAssociations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('name=' '"' name=nameType '"')?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('navigableMembers' navigableMembers=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedMembers+=ExchangeItemInstance*
+	('</ownedAssociations>')?
+;
+
+ExchangeItemInstance:
+	{ExchangeItemInstance}
+	('<ownedExchangeItemInstances' | '<ownedMembers')
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('aggregationKind' aggregationKind=AggregationKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('qualifier' qualifier=EString)?
+	('isAbstract' isAbstract=EString)?
+	('isStatic' isStatic=EString)?
+	('ordered' ordered=EString)?
+	('unique' uniqu=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('final' final=EString)?
+	('isDerived' isDerived=EString)?
+	('isReadOnly' isReadOnly=EString)?
+	('isPartOfKey' isPartOfKey=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedDefaultValue+=DataValue*
+	('</ownedExchangeItemInstances>' | '</ownedMembers>')?
+;
+
+DataType:
+	{DataType}
+	'<ownedDataTypes'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('discrete' discrete=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('pattern' pattern=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('kind=' '"' kind=NumericTypeKind '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('unit' unit=EString)?
+	('abstract' abstract=EString)?
+    ('final' final=EString)?
+    ('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedGeneralizations+=Generalization*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedDataValues+=DataValue*
+	ownedInformationRealizations+=InformationRealization*
+	ownedLiterals+=DataValue*
+	('</ownedDataTypes>')?
+;
+
+Signal:
+	{Signal}
+	'<ownedSignals'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstract' abstract=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	 ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedDataValues+=DataValue*
+	ownedStateMachines+=StateMachine*
+	signalInstances+=SignalInstance*
+	('</ownedSignals>')?
+	;
+
+SignalInstance:
+	{SignalInstance}
+	'<signalInstances'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('aggregationKind' aggregationKind=AggregationKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('isAbstract' isAbstract=EString)?
+	('isStatic' isStatic=EString)?
+	('ordered' ordered=EString)?
+	('unique' unique=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('final' final=EString)?
+	('isDerived' isDerived=EString)?
+	('isReadOnly' isReadOnly=EString)?
+	('isPartOfKey' isPartOfKey=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedDefaultValue+=DataValue*
+	('</signalInstances>')?
+;
+
+Exception:
+	{Exception}
+	'<ownedExceptions'
+	'xsi:type' type=EString
+    'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedDataValues+=DataValue*
+	ownedStateMachines+=StateMachine*
+	('</ownedExceptions>')?
+;
+
+StateMachine:
+	{StateMachine}
+	'<ownedStateMachines'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('name=' '"' name=nameType '"')?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('ownedParameterSet' ownedParameterSet=EString)?
+	('ownedParameter'  ownedParameter=EString)?
+	('isControlOperator' isControlOperator=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedRegions+=Region*
+	('</ownedStateMachines>')?
+;
+
+Region:
+	{Region}
+	'<ownedRegions'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' ppliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('involvedStates' involvedStates=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTransitions+=StateTransition*
+	('</ownedRegions>')?
+;
+
+StateTransition:
+	'<ownedTransitions'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kind' kind=TransitionKind)?
+	('triggerDescription' triggerDescription=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('guard' guard=EString)?
+	'source' source=EString
+	'target' target=EString
+	('effect' effect=EString)?
+	('triggers' triggers=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedStateTransitionRealizations+=StateTransitionRealization*
+	('</ownedTransitions>')?;
+
+StateTransitionRealization:
+	'<ownedStateTransitionRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedStateTransitionRealizations>')?
+;
+
+RolePkg:
+	'<ownedRolePkg'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' nameRolePkg=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedRolePkgs+=RolePkg*
+	ownedRoles+=Role*
+	('</ownedRolePkg>')?
+;
+
+Role:
+	'<ownedRoles'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' nameRole=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('aggregationKind' aggregationKind=AggregationKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('isAbstract' isAbstract=EString)?
+	('isStatic' isStatic=EString)?
+	('ordered' ordered=EString)?
+	('unique' unique=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('final' final=EString)?
+	('isDerived' isDerived=EString)?
+	('isReadOnly' isReadOnly=EString)?
+	('isPartOfKey' isPartOfKey=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedDefaultValue+=DataValue*
+	ownedRoleAssemblyUsages+=RoleAssemblyUsage*
+	constraint+=Constraint*
+	ownedActivityAllocations+=ActivityAllocation*
+	('</ownedRoles>')?
+;
+
+ActivityAllocation:
+	'<ownedActivityAllocations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType *
+	ownedPropertyValueGroups+=PropertyValueGroup*
+    ('</ownedActivityAllocations>')?
+;
+
+RoleAssemblyUsage:
+	{RoleAssemblyUsage}
+	'<ownedRoleAssemblyUsages'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' name=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString )?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features'features=EString)?
+	('child' child=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedRoleAssemblyUsages>')?
+;
+
+EntityPkg:
+	{EntityPkg}
+	'<ownedEntityPkg'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedParts+=Part*
+	ownedComponentExchanges+=ComponentExchange*
+	ownedComponentExchangeCategories+=ComponentExchangeCategory*
+	ownedFunctionalLinks+=ExchangeLink*
+	ownedFunctionalAllocations+=ComponentFunctionalAllocation*
+    ownedComponentExchangeRealizations+=ComponentExchangeRealization*
+	ownedPhysicalLinks+=PhysicalLink*
+	ownedStateMachines+=StateMachine*
+	ownedEntities+=Entity*
+	ownedEntityPkgs+=EntityPkg*
+	ownedLocations+=Location*
+	ownedCommunicationMeans+=CommunicationMean*
+	('</ownedEntityPkg>')?
+;
+
+Part:
+	{Part}
+	'<ownedParts'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('visibility=' '"' visibility=VisibilityKind '"')?
+	('aggregationKind' aggregationKind=AggregationKind)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' '(' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('abstractType' abstractType=EString)?
+	('isAbstract' isAbstract=EString)?
+	('isStatic' isStatic=EString)?
+	('ordered' ordered=EString)?
+	('unique' unique=EString)?
+	('minInclusive' minInclusive=EString)?
+	('maxInclusive' maxInclusive=EString)?
+	('final' final=EString)?
+	('isDerived' isDerived=EString)?
+	('isReadOnly' isReadOnly=EString)?
+	('isPartOfKey' isPartOfKey=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedDefaultValue+=DataValue*
+	ownedDeploymentLinks+=AbstractDeploymentLink*
+	(ownedAbstractType=AbstractType)?
+	('</ownedParts>')?
+;
+
+AbstractType:
+	{AbstractType}
+	'<ownedAbstractType'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('idType' idType=EString)?
+	('>' | '/>')?
+	('</ownedAbstractType>')?
+;
+
+
+AbstractDeploymentLink:
+	'<ownedDeploymentLinks'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'deployedElement' deployedElement=EString
+	'location' location=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedDeploymentLinks>')?
+;
+
+PhysicalLink:
+	'<ownedPhysicalLinks'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name='  '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'linkEnds' linkEnds=EString 
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedComponentExchangeAllocations+=ComponentExchangeAllocation*
+	ownedComponentExchangeFunctionalExchangeAllocations+=ComponentExchangeFunctionalExchangeAllocation*
+	ownedPhysicalLinkEnds+=PhysicalLinkEnd*
+	ownedPhysicalLinkRealizations+=PhysicalLinkRealization*
+	('</ownedPhysicalLinks>')?
+;
+
+ComponentExchangeAllocation:
+	'<ownedComponentExchangeAllocations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedComponentExchangeAllocations>')?
+;
+
+PhysicalLinkRealization:
+	'<ownedPhysicalLinkRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedPhysicalLinkRealizations>')?
+;
+
+PhysicalLinkEnd:
+	{PhysicalLinkEnd}
+	'<ownedPhysicalLinkEnds'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('port' port=EString)?
+	('part' part=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedPhysicalLinkEnds>')?
+;
+
+Location:
+	'<ownedLocations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('locationDescription' locationDescription=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('inExchangeLinks' inExchangeLinks=EString)?
+	('outExchangeLinks' outExchangeLinks=EString)?
+	('composingLinks' composingLinks=EString)?
+	('locatedEntities' locatedEntities=EString)?
+	('abstract' abstract=EString)?
+	('actor' actor=EString)?
+	('human' human=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+    ownedTraces+=Trace*
+	ownedFunctionalAllocation+=ComponentFunctionalAllocation*
+	ownedComponentExchanges+=ComponentExchange*
+	ownedComponentExchangeCategories+=ComponentExchangeCategory*
+	ownedStateMachines+=StateMachine*
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	ownedInterfaceAllocations+=InterfaceAllocation*
+	ownedCommunicationLinks+=CommunicationLink*
+	ownedInterfaceUses+=InterfaceUse*
+	ownedInterfaceImplementations+=InterfaceImplementation*
+	ownedComponentRealizations+=ComponentRealization*
+	ownedPhysicalPath+=PhysicalPath*
+	ownedPhysicalLinks+=PhysicalLink*
+	('</ownedLocations>')?
+;
+
+CommunicationMean:
+	'<ownedCommunicationMeans'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('name='  '"' name=nameType '"')?
+	('kind' kind=ComponentExchangeKind)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('realizations' realizations=EString)?
+	('convoyedInformations' convoyedInformations=EString)?
+	'source' source=EString
+	'target' target=EString
+	('link' link=EString)?
+	('oriented' oriented=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedComponentExchangeFunctionalExchangeAllocations+=ComponentExchangeFunctionalExchangeAllocation*
+	ownedComponentExchangeRealizations+=ComponentExchangeRealization*
+	ownedComponentExchangeEnds+=ComponentExchangeEnd*
+	('</ownedCommunicationMeans>')?
+;
+
+Entity:
+	'<ownedEntities'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('inExchangeLinks' inExchangeLinks=EString)?
+	('outExchangeLinks' outExchangeLinks=EString)?
+	('composingLinks' composingLinks=EString)?
+	('organisationalUnitMemberships' organisationalUnitMemberships=EString)?
+	('actualLocation' actualLocation=EString)?
+	('abstract' abstract=EString)?
+    ('actor' actor=EString)?
+    ('human' human=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	constraint+=Constraint*
+	ownedFunctionalAllocation+=ComponentFunctionalAllocation*
+	ownedComponentExchanges+=ComponentExchange*
+	ownedComponentExchangeCategories+=ComponentExchangeCategory*
+	ownedStateMachines+=StateMachine*
+	ownedGeneralizations+=Generalization*
+	ownedFeatures+=Feature*
+	ownedInterfaceAllocations+=InterfaceAllocation*
+	ownedCommunicationLinks+=CommunicationLink*
+	ownedInterfaceUses+=InterfaceUse*
+	ownedInterfaceImplementations+=InterfaceImplementation*
+	ownedComponentRealizations+=ComponentRealization*
+	ownedPhysicalPath+=PhysicalPath*
+	ownedPhysicalLinks+=PhysicalLink*
+	ownedEntities+=Entity*
+	ownedCommunicationMeans+=CommunicationMean*
+	ownedRoleAllocations+=RoleAllocation*
+	('</ownedEntities>')?
+;
+
+ComponentRealization:
+	'<ownedComponentRealizations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features'features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+    ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedComponentRealizations>')?
+;
+
+PhysicalPath:
+	{PhysicalPath}
+	'<ownedPhysicalPath'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('involvedLinks' involvedLinks=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedComponentExchangeAllocations+=ComponentExchangeAllocation*
+	ownedPhysicalPathInvolvements+=PhysicalPathInvolvement*
+	('</ownedPhysicalPath>')?
+;
+
+PhysicalPathInvolvement:
+	'<ownedPhysicalPathInvolvements'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'involved' involved=EString
+	('nextInvolvements'  nextInvolvements=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedPhysicalPathInvolvements>')?
+;
+
+InterfaceUse:
+	'<ownedInterfaceUses'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'usedInterface' usedInterface=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedInterfaceUses>')?
+;
+
+InterfaceImplementation:
+	'<ownedInterfaceImplementations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'implementedInterface' implementedInterface=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedInterfaceImplementations>')?
+;
+
+CommunicationLink:
+	{CommunicationLink}
+	'<ownedCommunicationLinks'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('kind' kind=CommunicationLinkKind)?
+	('protocol' protocol=CommunicationLinkProtocol)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('exchangeItem' exchangeItem=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedCommunicationLinks>')?
+;
+
+RoleAllocation:
+	'<ownedRoleAllocations'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('realizedFlow' realizedFlow=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'targetElement' targetElement=EString
+	'sourceElement' sourceElement=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+    ownedPropertyValueGroups+=PropertyValueGroup*
+	('</ownedRoleAllocations>')?
+;
+
+ConceptPkg:
+	{ConceptPkg}
+	'<ownedConceptPkg'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+    ('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	ownedTraces+=Trace*
+	ownedPropertyValuePkgs+=PropertyValuePkg*
+	ownedConceptPkgs+=ConceptPkg*
+	ownedConcepts+=Concept*
+	('</ownedConceptPkg>')?
+;
+
+Concept:
+	{Concept}
+	'<ownedConcepts'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	('compliances' compliances=EString)?
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	compositeLinks+=ItemInConcept*
+	('</ownedConcepts>')?
+;
+
+ItemInConcept:
+	'<compositeLinks'
+	'xsi:type' type=EString
+	'id' id=EString
+	('sid' sid=EString)?
+	('name=' '"' name=nameType '"')?
+	('visibleInDoc' visibleInDoc=EString)?
+	('visibleInLM' visibleInLM=EString)?
+	('summary' summary=EString)?
+	('description' description=EString)?
+	('review' review=EString)?
+	('appliedPropertyValues' appliedPropertyValues=EString)?
+	('appliedPropertyValueGroups' appliedPropertyValueGroups=EString)?
+	('status' status=EString)?
+	('features' features=EString)?
+	'concept' concept=EString
+	'item' item=EString
+	('>' | '/>')?
+	ownedPropertyValues+=AbstractPropertyValue*
+	ownedEnumerationPropertyTypes+=EnumerationPropertyType*
+	ownedPropertyValueGroups+=PropertyValueGroup*
+	('</compositeLinks>')?
+;
+
+
+// Definition of the original constants
+
+enum NumericTypeKind:
+	INTEGER = 'INTEGER' | FLOAT = 'FLOAT'
+;
+
+enum ParameterDirection:
+	IN = 'IN' | OUT = 'OUT' | INOUT = 'INOUT' | RETURN = 'RETURN' | EXCEPTION = 'EXCEPTION' | UNSET = 'UNSET';
+				
+enum ElementKind:
+	TYPE = 'TYPE' | MEMBER = 'MEMBER'
+;
+				
+enum ComponentExchangeKind:
+	UNSET = 'UNSET' | DELEGATION = 'DELEGATION' | ASSEMBLY = 'ASSEMBLY' | FLOW = 'FLOW';
+				
+enum ObjectNodeKind:
+	Unspecified = 'Unspecified' | NoBuffer = 'NoBuffer' | Overwrite = 'Overwrite'
+;
+
+enum ObjectNodeOrderingKind:
+	FIFO = 'FIFO' | LIFO = 'LIFO' | ordered = 'ordered' | unordered = 'unordered';
+
+enum FunctionKind:
+	FUNCTION = 'FUNCTION' | DUPLICATE = 'DUPLICATE' | GATHER = 'GATHER' | SELECT = 'SELECT' | SPLIT = 'SPLIT' | ROUTE = 'ROUTE';
+	
+enum BinaryOperator:
+	UNSET = 'UNSET' | ADD = 'ADD' | MUL = 'MUL' | SUB = 'SUB' | DIV = 'DIV' | POW = 'POW' | MIN = 'MIN' | MAX = 'MAX' | EQU = 'EQU' | IOR = 'IOR' | XOR = 'XOR' | AND = 'AND';
+
+enum UnaryOperator:
+	UNSET = 'UNSET' | NOT = 'NOT' | POS = 'POS' | VAL = 'VAL' | SUC = 'SUC' | PRE = 'PRE'
+;
+
+enum TransitionKind:
+	internal = 'internal' | local = 'local' | external = 'external';
+
+enum CommunicationLinkProtocol:
+	UNSET = 'UNSET' | UNICAST = 'UNICAST' | MULTICAST = 'MULTICAST' | BROADCAST = 'BROADCAST' | SYNCHRONOUS = 'SYNCHRONOUS' | ASYNCHRONOUS = 'ASYNCHRONOUS' | READ = 'READ' | ACCEPT = 'ACCEPT';
+
+enum AggregationKind:
+	UNSET = 'UNSET' | ASSOCIATION = 'ASSOCIATION' | AGGREGATION = 'AGGREGATION' | COMPOSITION = 'COMPOSITION'
+;
+
+enum UnionKind:
+	UNION = 'UNION' | VARIANT = 'VARIANT';
+
+enum CollectionKind:
+	ARRAY = 'ARRAY' | SEQUENCE = 'SEQUENCE';
+
+enum VisibilityKind:
+	UNSET = 'UNSET' | PUBLIC = 'PUBLIC' | PROTECTED = 'PROTECTED' | PRIVATE = 'PRIVATE' | PACKAGE = 'PACKAGE'
+;
+
+enum EventKind:
+	WHEN = 'WHEN' | AT = 'AT' | AFTER = 'AFTER';
+				
+enum RateKind:
+	Unspecified = 'Unspecified' | Continuous = 'Continuous' | Discrete = 'Discrete'
+;
+
+enum FunctionalChainKind:
+	SIMPLE = 'SIMPLE' | COMPOSITE = 'COMPOSITE' | FRAGMENT = 'FRAGMENT';
+		
+enum ControlNodeKind:
+	OR = 'OR' | AND = 'AND' | ITERATE = 'ITERATE'
+;
+
+enum CommunicationLinkKind:
+	UNSET = 'UNSET' | PRODUCE = 'PRODUCE' | CONSUME = 'CONSUME' | SEND = 'SEND' | RECEIVE = 'RECEIVE' | CALL = 'CALL' | EXECUTE = 'EXECUTE' | WRITE = 'WRITE' | ACCESS = 'ACCESS' | ACQUIRE = 'ACQUIRE' | TRANSMIT = 'TRANSMIT'
+;	
+
+enum ExchangeMechanism:
+	UNSET = 'UNSET' | FLOW = 'FLOW' | OPERATION = 'OPERATION' | EVENT = 'EVENT' | SHARED_DATA = 'SHARED_DATA'
+;
+
+// Definiton of the new customized constaints
+@Override
+terminal ID: ('a'..'z'|'A'..'Z'|'_'|'i'..'ￜ'|':'|'0'..'9')*;	
+
+terminal EString: '="'(('a'..'z'|'A'..'Z'|'_'|':'|'.'|'-'|'0'..'9'|' '|'#'| '&' | '>' | '<' | ';' | '/'))+'"';
+
+
+@Override 
+terminal STRING: '@@@@@@willnenverbecalled@@@@@';
+
+@Override
+terminal INT returns ecore::EInt: '@@@@@@willnenverbecalledAgain@@@@@';
+
+terminal INVARIANT_CHARACTER2: ('>>');
+
+Boolean returns ecore::EString: 'true' | 'false';
+
+nameType:
+    (ID|STRING2|')'|'('|'not('|'&amp;'|'or')+
+;
+
+EmptyString:
+   '"''"'
+;
+   
+//Terminal String including empty one
+terminal STRING2:
+    ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */)
+;
+
+
+EFloat returns ecore::EFloat:
+	'-'? ID? '.' ID (('E'|'e') '-'? ID)?
+;
