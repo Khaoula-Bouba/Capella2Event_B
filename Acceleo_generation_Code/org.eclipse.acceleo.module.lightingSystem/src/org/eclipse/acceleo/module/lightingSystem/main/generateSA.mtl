@@ -1,0 +1,81 @@
+[comment encoding = UTF-8 /]
+[module generateSA('http://www.eclipse.org/gmf/runtime/1.0.3/notation', 'http://www.eclipse.org/sirius/1.1.0', 'http://www.eclipse.org/sirius/diagram/description/1.1.0', 'http://www.polarsys.org/capella/common/behavior/5.0.0', 'http://www.polarsys.org/capella/core/common/5.0.0', 'http://www.polarsys.org/capella/common/activity/5.0.0', 'http://www.polarsys.org/capella/common/libraries/5.0.0', 'http://www.polarsys.org/capella/common/re/5.0.0', 'http://www.polarsys.org/capella/core/modeller/5.0.0', 'http://www.polarsys.org/capella/core/core/5.0.0', 'http://www.polarsys.org/capella/core/oa/5.0.0', 'http://www.polarsys.org/capella/core/ctx/5.0.0', 'http://www.polarsys.org/capella/core/la/5.0.0', 'http://www.polarsys.org/capella/core/pa/5.0.0', 'http://www.polarsys.org/capella/core/epbs/5.0.0', 'http://www.polarsys.org/capella/core/sharedmodel/5.0.0', 'http://www.polarsys.org/capella/core/requirement/5.0.0', 'http://www.polarsys.org/capella/core/information/5.0.0', 'http://www.polarsys.org/capella/core/cs/5.0.0', 'http://www.polarsys.org/capella/core/fa/5.0.0', 'http://www.polarsys.org/capella/core/interaction/5.0.0')]
+
+
+[query public getAllSysComponents(components : Set(SystemComponent)) : Set(SystemComponent)
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'getAllSysComponents(java.util.Set)', Sequence{components})
+/]
+
+[query public getFunctionInputsAndOutputs(function : ComponentFunctionalAllocation, inputs : Set(FunctionInputPort), outputs : Set(FunctionOutputPort)) : String 
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'getFunctionInputsAndOutputs(org.polarsys.capella.core.data.fa.ComponentFunctionalAllocation, java.util.Set, java.util.Set)', Sequence{function, inputs, outputs}) 
+/]
+
+[query public fillSetsPart(component : SystemComponent, functions : Set(ComponentFunctionalAllocation), lastComponent : SystemComponent) : String 
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'fillSetsPart(org.polarsys.capella.core.data.ctx.SystemComponent, java.util.Set, org.polarsys.capella.core.data.ctx.SystemComponent)', Sequence{component, functions, lastComponent}) 
+/]
+
+[query public getInputOutputValues(functionalExchanges : Set(FunctionalExchange)) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'getInputOutputValues(java.util.Set)', Sequence{functionalExchanges})
+/]
+
+[query public getVariables() : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'getVariables()', Sequence{})
+/]
+
+[query public getInvariants(firstSepa : String, secondSepa : String) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'getInvariants(java.lang.String, java.lang.String)', Sequence{firstSepa, secondSepa})
+/]
+
+[query public getInitialisations(firstSepa : String, secondSepa : String) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'getInitialisations(java.lang.String, java.lang.String)', Sequence{firstSepa, secondSepa})
+/]
+
+[query public getEvents(component : SystemComponent , functionId : String, functionName : String, type : String, exchanges : Set(FunctionalExchange)) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesSA', 'getEvents(org.polarsys.capella.core.data.ctx.SystemComponent, java.lang.String, java.lang.String, java.lang.String, java.util.Set)', Sequence{component, functionId, functionName, type, exchanges})
+/]
+
+[template public generateElement(SA : SystemAnalysis)]
+[comment @main/]
+[file (SA.name.concat('_Machine.txt'), false, 'UTF-8')]
+[let components : OrderedSet(SystemComponent) = SA.ownedSystemComponentPkg.ownedSystemComponents]
+[let sysComponents : OrderedSet(SystemComponent) = getAllSysComponents(components)->asOrderedSet()]
+ [for ( sysComponent: SystemComponent | sysComponents)]
+ [let ownedFunctions:  OrderedSet(ComponentFunctionalAllocation) = sysComponent.ownedFunctionalAllocation]
+  [for (function1 : ComponentFunctionalAllocation | ownedFunctions)]
+   [getFunctionInputsAndOutputs(function1, function1.targetElement.eAllContents(FunctionInputPort)->asSet(),
+                                  function1.targetElement.eAllContents(FunctionOutputPort)->asSet()) /]
+  [/for]
+ [/let]
+ [/for]
+
+[let functionalExhanges : Set(FunctionalExchange) = SA.ownedFunctionPkg.eAllContents(FunctionalExchange)->asSet()]   
+[getInputOutputValues(functionalExhanges) /]
+SYSTEM
+Machine [SA.name/]
+
+SETS
+ [for ( sysComponent1: SystemComponent | sysComponents)]
+    [fillSetsPart(sysComponent1, sysComponent1.ownedFunctionalAllocation->asSet(), sysComponents->last()) /]
+ [/for]
+VARIABLES
+    [getVariables() /]
+INVARIANT
+    [getInvariants(':', '&') /]
+INITIALISATION
+    [getInitialisations(':=', '||') /]
+EVENTS
+[for ( sysComponent2: SystemComponent | sysComponents)]
+[let ownedFunctions :  OrderedSet(ComponentFunctionalAllocation) = sysComponent2.ownedFunctionalAllocation]
+[for (function2 : ComponentFunctionalAllocation | ownedFunctions)]
+[getEvents(sysComponent2, function2.targetElement.id, function2.targetElement.eGet('name').toString(), 
+                function2.targetElement.eGet('kind').toString(), functionalExhanges)/]
+[/for]
+[/let]
+[/for]
+
+[/let]
+[/let]
+[/let]
+END
+[/file]
+[/template]

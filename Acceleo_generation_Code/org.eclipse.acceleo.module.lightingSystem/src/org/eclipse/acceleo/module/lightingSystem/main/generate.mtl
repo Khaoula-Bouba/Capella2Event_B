@@ -1,0 +1,138 @@
+[comment encoding = UTF-8 /]
+[module generate('http://www.eclipse.org/gmf/runtime/1.0.3/notation', 'http://www.eclipse.org/sirius/1.1.0', 'http://www.eclipse.org/sirius/diagram/description/1.1.0', 'http://www.polarsys.org/capella/common/behavior/5.0.0', 'http://www.polarsys.org/capella/core/common/5.0.0', 'http://www.polarsys.org/capella/common/activity/5.0.0', 'http://www.polarsys.org/capella/common/libraries/5.0.0', 'http://www.polarsys.org/capella/common/re/5.0.0', 'http://www.polarsys.org/capella/core/modeller/5.0.0', 'http://www.polarsys.org/capella/core/core/5.0.0', 'http://www.polarsys.org/capella/core/oa/5.0.0', 'http://www.polarsys.org/capella/core/ctx/5.0.0', 'http://www.polarsys.org/capella/core/la/5.0.0', 'http://www.polarsys.org/capella/core/pa/5.0.0', 'http://www.polarsys.org/capella/core/epbs/5.0.0', 'http://www.polarsys.org/capella/core/sharedmodel/5.0.0', 'http://www.polarsys.org/capella/core/requirement/5.0.0', 'http://www.polarsys.org/capella/core/information/5.0.0', 'http://www.polarsys.org/capella/core/cs/5.0.0', 'http://www.polarsys.org/capella/core/fa/5.0.0', 'http://www.polarsys.org/capella/core/interaction/5.0.0')]
+
+
+[query public getAllEntities(allEntities : Set(Entity), functionalExchanges : Set(FunctionalExchange), isScenarioDiagram : Boolean ) : Set(Entity)
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'getAllEntities(java.util.Set, java.util.Set, java.lang.Boolean)', Sequence{allEntities, functionalExchanges, isScenarioDiagram})
+/]
+
+[query public getAllRoles(allRoles : Set(Role)) : Set(Role)
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'getAllRoles(java.util.Set)', Sequence{allRoles})
+/]
+
+[query public fillSets(functions : Set(ComponentFunctionalAllocation), roles : Set(Role), setName : String, set : Entity) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'fillSets(java.util.Set, java.util.Set, java.lang.String, org.polarsys.capella.core.data.oa.Entity)', Sequence{functions, roles, setName, set})
+/]
+
+[query public fillSetRoles(activities : Set(ActivityAllocation), setRoleName : String, role : Role) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'fillSetRoles(java.util.Set, java.lang.String, org.polarsys.capella.core.data.oa.Role)', Sequence{activities, setRoleName, role})
+/]
+
+[query public hasInputs(exchanges : Set(FunctionalExchange), activityId : String) : String 
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'hasInputs(java.util.Set, java.lang.String)', Sequence{exchanges, activityId})
+/]
+
+[query public constructEvents(exchanges : Set(FunctionalExchange), ownedActivityId : String, setName : String, isScenario : Boolean, timeLapses : Set(TimeLapse)) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'constructEvents(java.util.Set, java.lang.String, java.lang.String, java.lang.Boolean, java.util.Set)', Sequence{exchanges, ownedActivityId, setName, isScenario, timeLapses})
+/]
+
+[query public getSetsNames() : Set(String)
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'getSetsNames()', Sequence{})
+/]
+
+[query public fillInvariants() : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'fillInvariants()', Sequence{})
+/]
+
+[query public getInvariants(setName : String, lastSetName : String, firstSetName : String, firstSeparator : String, startCharacter : String, secondSeparator : String, isInvariant : Boolean, isScenarioDiagram : Boolean) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'getInvariants(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean)', Sequence{setName, lastSetName, firstSetName, firstSeparator, startCharacter, secondSeparator, isInvariant, isScenarioDiagram})
+/]
+
+[query public getNumbersInitialisations() : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.Queries', 'getNumbersInitialisations()', Sequence{})
+/]
+
+[template public generateElement(OA : OperationalAnalysis)]
+[comment @main/]
+
+[file (OA.name.concat('_Machine.txt'), false, 'UTF-8')]
+SYSTEM
+Machine [OA.name/]
+[let allEntities : OrderedSet(Entity) = OA.ownedEntityPkg.ownedEntities]
+[let allRoles : OrderedSet(Role) = OA.ownedRolePkg.ownedRoles]
+[let functionalExhanges : Set(FunctionalExchange) = OA.ownedFunctionPkg.eAllContents(FunctionalExchange)->asSet()]
+
+SETS
+[let sortedSets : OrderedSet(Entity) = getAllEntities(allEntities, functionalExhanges, false)->asOrderedSet()]
+[let sortedRoles : OrderedSet(Role) = getAllRoles(allRoles)->asOrderedSet()]
+ [for (set : Entity | sortedSets)]
+  [fillSets(set.ownedFunctionalAllocation->asSet(), allRoles, set.name, set) /]
+ [/for]
+ [for (role : Role | sortedRoles)]
+  [fillSetRoles(role.ownedActivityAllocations->asSet(), role.name, role) /]
+ [/for]
+
+[let setNames : OrderedSet(String) = getSetsNames()->asOrderedSet()]
+VARIABLES
+
+[for (setName : String | setNames)]
+[if (setName.equalsIgnoreCase(setNames->last()))]
+  Var_[setName/]
+[else]
+  Var_[setName/],
+[/if]	
+[/for]
+
+INVARIANT
+
+[for (setName1 : String | setNames)]
+  [getInvariants(setName1, setNames->last(), setNames->first(), '&', ':', ':', true, false) /]
+[/for]
+[fillInvariants() /]
+
+INITIALISATION
+[getNumbersInitialisations() /]
+[for (setName2 : String | setNames)]
+[getInvariants(setName2, setNames->last(), setNames->first(), '||', '=', ':=', false, false) /]
+[/for]
+
+[let exchanges : Set(FunctionalExchange) = OA.ownedFunctionPkg.eAllContents(FunctionalExchange)->asSet()]
+EVENTS
+
+[for ( set2 : Entity | sortedSets)]
+  [let ownedFunctions :  OrderedSet(ComponentFunctionalAllocation) = set2.ownedFunctionalAllocation]
+   [for (ownedFunction : ComponentFunctionalAllocation | ownedFunctions)]
+      [if (hasInputs(exchanges, ownedFunction.targetElement.id) = 'YES')]
+      [ownedFunction.targetElement.eGet('name')/] = 
+      ANY
+        param
+      WHERE
+       param : [set2.name/] & param /= Var_[set2.name/] 
+       [constructEvents(exchanges, ownedFunction.targetElement.id, set2.name, false, null)/]
+      END;
+      [/if]
+
+   [/for]
+  [/let]
+[/for]
+[for ( role2 : Role | sortedRoles)]
+  [let ownedActivities :  OrderedSet(ActivityAllocation) = role2.ownedActivityAllocations]
+   [for (ownedActivity : ActivityAllocation | ownedActivities)]
+      [if (hasInputs(exchanges, ownedActivity.targetElement.id) = 'YES')]
+      [ownedActivity.targetElement.eGet('name')/] = 
+      ANY
+        param
+      WHERE
+        param : [role2.name/] & param /=  Var_[role2.name/] 
+       [constructEvents(exchanges, ownedActivity.targetElement.id, role2.name, false, null)/]
+      END;
+      [/if]
+    
+   [/for]
+  [/let]
+[/for]
+[/let]
+[/let]
+[/let]
+[/let]
+[/let]
+[/let]
+[/let]
+
+END
+
+
+[comment  [testTemplate(OA) /]
+[/file]
+[/template]
+

@@ -1,0 +1,82 @@
+[comment encoding = UTF-8 /]
+[module generateLA('http://www.eclipse.org/gmf/runtime/1.0.3/notation', 'http://www.eclipse.org/sirius/1.1.0', 'http://www.eclipse.org/sirius/diagram/description/1.1.0', 'http://www.polarsys.org/capella/common/behavior/5.0.0', 'http://www.polarsys.org/capella/core/common/5.0.0', 'http://www.polarsys.org/capella/common/activity/5.0.0', 'http://www.polarsys.org/capella/common/libraries/5.0.0', 'http://www.polarsys.org/capella/common/re/5.0.0', 'http://www.polarsys.org/capella/core/modeller/5.0.0', 'http://www.polarsys.org/capella/core/core/5.0.0', 'http://www.polarsys.org/capella/core/oa/5.0.0', 'http://www.polarsys.org/capella/core/ctx/5.0.0', 'http://www.polarsys.org/capella/core/la/5.0.0', 'http://www.polarsys.org/capella/core/pa/5.0.0', 'http://www.polarsys.org/capella/core/epbs/5.0.0', 'http://www.polarsys.org/capella/core/sharedmodel/5.0.0', 'http://www.polarsys.org/capella/core/requirement/5.0.0', 'http://www.polarsys.org/capella/core/information/5.0.0', 'http://www.polarsys.org/capella/core/cs/5.0.0', 'http://www.polarsys.org/capella/core/fa/5.0.0', 'http://www.polarsys.org/capella/core/interaction/5.0.0')]
+
+
+[query public getAllLogicalComponents(components : Set(LogicalComponent)) : Set(LogicalComponent)
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'getAllLogicalComponents(java.util.Set)', Sequence{components})
+/]
+
+[query public getFunctionInputsAndOutputs(function : ComponentFunctionalAllocation, inputs : Set(FunctionInputPort), outputs : Set(FunctionOutputPort)) : String 
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'getFunctionInputsAndOutputs(org.polarsys.capella.core.data.fa.ComponentFunctionalAllocation, java.util.Set, java.util.Set)', Sequence{function, inputs, outputs}) 
+/]
+
+[query public fillSetsPart(component : LogicalComponent, functions : Set(ComponentFunctionalAllocation), lastComponent : LogicalComponent) : String 
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'fillSetsPart(org.polarsys.capella.core.data.la.LogicalComponent, java.util.Set, org.polarsys.capella.core.data.la.LogicalComponent)', Sequence{component, functions, lastComponent}) 
+/]
+
+[query public getInputOutputValues(functionalExchanges : Set(FunctionalExchange)) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'getInputOutputValues(java.util.Set)', Sequence{functionalExchanges})
+/]
+
+[query public getVariables() : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'getVariables()', Sequence{})
+/]
+
+[query public getInvariants(firstSepa : String, secondSepa : String) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'getInvariants(java.lang.String, java.lang.String)', Sequence{firstSepa, secondSepa})
+/]
+
+[query public getInitialisations(firstSepa : String, secondSepa : String) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'getInitialisations(java.lang.String, java.lang.String)', Sequence{firstSepa, secondSepa})
+/]
+
+[query public getEvents(component : LogicalComponent, functionId : String, functionName : String, type : String, exchanges : Set(FunctionalExchange)) : String
+   = invoke('org.eclipse.acceleo.module.lightingSystem.main.QueriesLA', 'getEvents(org.polarsys.capella.core.data.la.LogicalComponent, java.lang.String, java.lang.String, java.lang.String, java.util.Set)', Sequence{component, functionId, functionName, type, exchanges})
+/]
+
+[template public generateElement(LA : LogicalArchitecture)]
+[comment @main/]
+[file (LA.name.concat('_Machine.txt'), false, 'UTF-8')]
+[let components : OrderedSet(LogicalComponent) = LA.ownedLogicalComponentPkg.ownedLogicalComponents]
+[let logicalComponents : OrderedSet(LogicalComponent) = getAllLogicalComponents(components)->asOrderedSet()]
+ [for ( logComponent: LogicalComponent | logicalComponents)]
+ [let ownedFunctions:  OrderedSet(ComponentFunctionalAllocation) = logComponent.ownedFunctionalAllocation]
+  [for (function1 : ComponentFunctionalAllocation | ownedFunctions)]
+   [getFunctionInputsAndOutputs(function1, function1.targetElement.eAllContents(FunctionInputPort)->asSet(),
+                                  function1.targetElement.eAllContents(FunctionOutputPort)->asSet()) /]
+  [/for]
+ [/let]
+ [/for]
+
+[let functionalExhanges : Set(FunctionalExchange) = LA.ownedFunctionPkg.eAllContents(FunctionalExchange)->asSet()]   
+[getInputOutputValues(functionalExhanges) /]
+SYSTEM
+Machine [LA.name/]
+
+SETS
+ [for ( logComponent1: LogicalComponent | logicalComponents)]
+    [fillSetsPart(logComponent1, logComponent1.ownedFunctionalAllocation->asSet(), logicalComponents->last()) /]
+ [/for]
+VARIABLES
+    [getVariables() /]
+INVARIANT
+    [getInvariants(':', '&') /]
+INITIALISATION
+    [getInitialisations(':=', '||') /]
+
+EVENTS
+[for ( logComponent2: LogicalComponent | logicalComponents)]
+[let ownedFunctions :  OrderedSet(ComponentFunctionalAllocation) = logComponent2.ownedFunctionalAllocation]
+[for (function2 : ComponentFunctionalAllocation | ownedFunctions)]
+[getEvents(logComponent2, function2.targetElement.id, function2.targetElement.eGet('name').toString(), function2.targetElement.eGet('kind').toString(), functionalExhanges)/]
+[/for]
+[/let]
+[/for]
+
+[/let]
+[/let]
+[/let]
+END
+[/file]
+[/template]
+
