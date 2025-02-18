@@ -108,7 +108,23 @@ Once the plugin is running inside Eclipse:
   
    *(Figure 4: Plug-in transformation actions)*
     
-5. The corresponding **Event-B model** will be automatically generated and added to your workspace.
+5. Once a Capella model is selected for transformation, the plugin generates an Event-B model following these steps:
+   - **Extracting Structural and Behavioral Elements**: The transformation process retrieves Capella model elements and maps them to corresponding Event-B constructs.
+   - **Translating Capella Functions and Constraints:**
+        - System behaviors and transitions are formalized as Event-B events.
+        - Safety properties are encoded as invariants.
+        - Data flow and functional interactions are mapped to guarded events.
+   - **Refinement and Validation**: The model can be refined from level to another iteratively, to incorporate more details while ensuring consistency.
+   
+   Once generated, the **Event-B model** is automatically added to the workspace. Below is an example of an Event-B model derived from the Operational Analysis model.
+   <p align="center">
+       <img src="https://github.com/Khaoula-Bouba/Capella2Event_B/blob/0e549af747bb5902572453a236133cb6755420b6/eventB_OA.PNG" alt="Capella Model Overview" width="650">
+   </p>
+6. After the transformation, the generated Event-B models undergo verification through **model-checking** to ensure correctness. This involves:
+   - Ensuring that defined safety and functional properties hold in all system states.
+   - Any violated invariants are flagged for revision.
+   - The model is analyzed to verify that all required states and transitions are reachable.
+   - Ensures that system behaviors align with formal specifications.
 
 ## Installation & Usage
 1. Clone the repository:
