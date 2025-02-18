@@ -1,0 +1,112 @@
+grammar org.xtext.example.eventBDSL.EventBDSL with org.eclipse.xtext.common.Terminals
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+generate eventBDSL "http://www.xtext.org/example/eventBDSL/EventBDSL"
+
+Machine returns Machine:
+	'SYSTEM' name=ID
+	('SETS' sets+=Set ( ";" sets+=Set)* )?
+	('VARIABLES' variables+=Variable ( "," variables+=Variable)* )?
+	('INVARIANT' invariants1=Invariant1
+		         ("&" invariantsLeftPart2+=LeftPartPredicateSubList ("&" invariantsLeftPart2+=LeftPartPredicateSubList)*)?
+	)?
+	('INITIALISATION' initializations+=Initialization ("||" initializations+=Initialization)* )?
+	('EVENTS' events+=Event (";" events+=Event)*)?
+	('END')
+;
+
+Set:
+	('//' comment=STRING)?
+	name=ID '=' '{' values+=SetValue ("," values+=SetValue)* '}'
+;
+
+SetValue:
+	name=ID
+;
+
+Variable:
+	name=ID
+;
+
+Invariant1:
+	('//' comment=STRING)?
+	typagePredicates+=(TypagePredicate1 | TypagePredicate2) ( "&" typagePredicates+=(TypagePredicate1 | TypagePredicate2))*
+;
+
+//Var_VEHICLE : VEHICLE
+TypagePredicate1:
+	name=[Variable] ":" value=[Set]
+;
+
+//Var_BOOL : TRUE/FALSE
+TypagePredicate2:
+	name=[Variable] ":" value=EVENTB_TYPE_KEYWORD
+;
+
+LeftPartPredicateSubList:
+	'(' leftPartPredicateList=Disconjuction "=>" rightPartPredicateList=Disconjuction ')'
+;
+
+Disconjuction returns Expression:
+	Conjuction ({Disconjuction.left=current} 'or' right=Conjuction)*
+;
+      
+Conjuction returns Expression:
+	Primary ({Conjuction.left=current} '&' right=Primary)*
+;
+      
+Primary returns Expression:
+	LeftPartPredicate | '(' Disconjuction ')'
+;
+
+//var1 = val1
+LeftPartPredicate:
+	val1=[Variable] ("=" | "/=") val2=MyID
+;
+
+MyID:
+	ID | EVENTB_TYPE_KEYWORD
+;
+
+Initialization:
+	name=[Variable] ":=" value=MyID
+;
+
+Event:
+	(comment = STRING)?
+	name=ID '=' ('\n')* 
+	'ANY' parameters+=[Parameter]+
+	'WHERE' guards=Guard
+	'THEN' actions=ActionsRule
+	'END'
+;
+
+Parameter:
+	name=ID ":" assignedSet=[Set]
+;
+
+Guard:
+	guardExp1=Parameter "&" guardExp2=[Parameter] "/=" guardExp3=[Variable]
+	"&" guardExp4=Disconjuction
+;
+
+ActionsRule:
+	actionList+=Action (";" actionList+=Action)*
+;
+Action:
+	actionLeftPart=[Variable] ":=" actionRightPart=MyID
+;
+
+terminal EVENTB_TYPE_KEYWORD returns ecore::EString:
+	'BOOL' |
+	'FALSE' |
+	'TRUE' |
+	'NATURAL' |
+	'NATURAL1' |
+	'FLOAT' |
+	'INTEGER'
+;
+
+
+@Override 
+terminal STRING: '"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
